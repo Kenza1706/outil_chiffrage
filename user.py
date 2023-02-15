@@ -391,12 +391,17 @@ def user_add_eq(data):
                 st.write('Sous système concerné :' ,des)
                 d["Sous Système"]=sys
         if st.button('Ajouter ✅'):
+            res =data.astype(str)
+            if str(ref) not in res["Référence Article"].unique():
                 st.success('Ajout éffectué avec succés!!!')
                 df_dictionary = pd.DataFrame([d])
                 data = pd.concat([data, df_dictionary], ignore_index=True)
                 data.reset_index(drop=True, inplace=True)
                 st.write(data)
-                return data         
+                return data  
+            else:
+                st.error('Référence article déja éxistante!!!')
+                return data
         else:
             return data
 
