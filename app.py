@@ -104,7 +104,7 @@ def main() :
     font-size:35px ; font-family: 'Cooper Black'; color: #95c2a9;} 
     </style> """, unsafe_allow_html=True)
                 st.markdown('<p class="font">PRESTATION - EQUIPEMENT</p>', unsafe_allow_html=True)
-                association(st.session_state.data,st.session_state.eq)
+                association()
     else:
         pass
                             

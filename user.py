@@ -307,7 +307,7 @@ def user_add_pres(data):
         dd = st.session_state.syst
         d=dict()
         with col1:
-                sys=st.selectbox('Sous système:',dd["N°Sous Système"].unique())
+                sys=st.selectbox('Sous système:',data["Sous Système"].unique())
                 des=dd[dd["N°Sous Système"]==sys]
                 des=(des["Désignation"].unique())[0]
                 st.write('Sous système concerné :' ,des)
@@ -418,7 +418,7 @@ def user_supp_pres(data):
             gridOptions=gridOptions,
             data_return_mode='AS_INPUT', 
             update_mode='MODEL_CHANGED', 
-            fit_columns_on_grid_load=False,
+            fit_columns_on_grid_load=True,
             theme='alpine', #Add theme color to the table
             enable_enterprise_modules=True,
             height = "800px", 
@@ -501,7 +501,9 @@ def user_supp_qte():
                 return data
         else:
             return data
-def association(data,eq):
+def association():
+                data=st.session_state.data
+                eq=st.session_state.eq
                 res = st.sidebar.radio("Choisir : ", ('Consulter 🔎', 'Rechercher 🕵️‍♂️','Ajouter 👈','Supprimer ❌'))
                 if res=='Consulter 🔎':
                     mdata=st.session_state.soc
@@ -804,6 +806,10 @@ def estimation_totale():
                                     ll.append(d)
                                 dataframe=pd.DataFrame(ll)
                                 st.write(dataframe)
+                                df_xlsx = to_excell(dataframe)
+                                st.download_button(label='📥 Télécharger',
+                                                data=df_xlsx ,
+                                                file_name= 'ESTIMATION-PRESTATION.xlsx')
                         with tab4:
                                  m=get_dataframe(res)
                                  col1, col2= st.columns(2)
